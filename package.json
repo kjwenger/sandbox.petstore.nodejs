@@ -4,8 +4,9 @@
   "description": "This is a sample server Petstore server.  You can find out more about     Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).      For this sample, you can use the api key `special-key` to test the authorization     filters.",
   "main": "index.js",
   "scripts": {
-    "prestart": "npm install",
-    "start": "node index.js"
+    "start": "node index.js",
+    "artillery": "artillery quick --count 100 -n 200 http://localhost:8080/v2/pet/1 2>&1 | tee bench.log",
+    "bench": "npm start & sleep 2 && npm run artillery && pkill node"
   },
   "keywords": [
     "swagger"
@@ -16,5 +17,8 @@
     "connect": "^3.2.0",
     "js-yaml": "^3.3.0",
     "swagger-tools": "0.10.1"
+  },
+  "devDependencies": {
+    "artillery": "^1.6.0-12"
   }
 }
